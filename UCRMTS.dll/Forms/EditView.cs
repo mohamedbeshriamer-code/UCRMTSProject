@@ -24,6 +24,12 @@ namespace UCRMTS.dll.Forms
             InitializeComponent();
         }
 
+        public EditView(CuscarInterchange cuscar)
+        {
+            InitializeComponent();
+            this.btnUpload.Enabled = false;
+        }
+
         private void btnUpload_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
