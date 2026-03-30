@@ -27,7 +27,9 @@ namespace UCRMTS.dll.Forms
         public EditView(CuscarInterchange cuscar)
         {
             InitializeComponent();
+            this.data = cuscar;
             this.btnUpload.Enabled = false;
+            this.SeedData();
         }
 
         private void btnUpload_Click(object sender, EventArgs e)
@@ -89,7 +91,56 @@ namespace UCRMTS.dll.Forms
                 }
             }
         }
+        private void SeedData()
+        {
+            try
+            {
 
+           
+            gridContainers.DataSource = data.Equipments.ToList();
+            txtSender.Text = data.SenderId;
+            txtReciver.Text = data.ReciverID;
+            txtDate.Text = data.Date.Date.ToString("yyyy/MM/dd");
+            txtPodCode.Text = data?.TransportInformation.PortOfDischarge?.LocationCode;
+            txtCarrierCode.Text = data?.TransportInformation?.CarrierCode;
+            txtCarrierId.Text = data?.TransportInformation?.CarrierID;
+            txtTradeCountry.Text = data?.TransportInformation?.TradeCountry;
+            txtVessel.Text = data?.TransportInformation?.Vessel;
+            txtImo.Text = data?.TransportInformation?.IMO;
+            txtVoage.Text = data?.TransportInformation?.Voage;
+            txtPortOfReceiptCode.Text = data?.TransportInformation.PortOfReceipt?.LocationName;
+            txtPolName.Text = data?.TransportInformation.PortOfLoading?.LocationName;
+            txtPolCode.Text = data?.TransportInformation.PortOfLoading?.LocationCode;
+            txtPod.Text = data?.TransportInformation.PortOfDischarge?.LocationName;
+            ArrivelDatePicker.Value = data.TransportInformation.ArrivalDate.Date;
+            if (data.TransportInformation.DepartureDate != null)
+            {
+                DepartureDatepicker.Value = data.TransportInformation.DepartureDate.Date;
+            }
+
+
+
+            foreach (var item in data.Consignments)
+            {
+                ConsigmentGridView consigmentGridView = new ConsigmentGridView(item);
+                consigmentGridView.GoodsItemRemoved += (ob, args) =>
+                {
+                    var selected = data.Consignments.FirstOrDefault(a => a.BillOfLadingNumber == args.BillOfLading);
+                    this.data.Consignments.Remove(selected);
+
+                    flowPanelControl.Controls.Remove((ConsigmentGridView)ob);
+
+
+                };
+                flowPanelControl.Controls.Add(consigmentGridView);
+            }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message ,"Error Getting data" , MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             EDIService eDIService = new EDIService();
