@@ -13,6 +13,7 @@ using UCRMTS.dll.DTOS;
 using static System.Net.WebRequestMethods;
 using static UCRMTS.dll.MTSRequests;
 using static UCRMTS.dll.Scops;
+using TypeCode = UCRMTS.dll.DTOS.TypeCode;
 
 namespace UCRMTS.dll
 {
@@ -338,9 +339,9 @@ namespace UCRMTS.dll
                        
                         UtilizedLogisticsTransportEquipment = details.ContainerDetails.Select(a=> new UtilizedLogisticsTransportEquipment()
                         {
-                          Id = new List<Id>()
+                          Id = new Id()
                           {
-                               new Id() {Content = a.ContainerNumber}
+                              Content =a.ContainerNumber,
                           },
                             UsedCapacityCode =new UsedCapacityCode()
                             {
@@ -363,14 +364,10 @@ namespace UCRMTS.dll
                                     {
                                         new Id(){ Content = b.Serial.ToString()}
                                     },
-                                    ConditionCode = new List<ConditionCode>()
+                                    SealingPartyRoleCode = new AffixedLogisticsSealId()
                                     {
-                                        new ConditionCode() { Content = b.ConditionCode}
-                                    },
-                                     SealingPartyRoleCode = new SealingPartyRoleCode()
-                                     {
-                                          Content =  b.RoleCode
-                                     }
+                                        Content = b.ConditionCode
+                                    }
                               }).ToList(),
                              TareWeight = new TareWeight()
                              {
@@ -409,7 +406,11 @@ namespace UCRMTS.dll
                 http.DefaultRequestHeaders.Add("Accept", "application/json");
                 http.DefaultRequestHeaders.Add("Idempotency-Key", Guid.NewGuid().ToString());
                 http.DefaultRequestHeaders.Add("requestId", Guid.NewGuid().ToString());
-                var requestBody = JsonConvert.SerializeObject(exchangeDataPipline);
+                var requestBody = JsonConvert.SerializeObject(exchangeDataPipline , new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    DefaultValueHandling = DefaultValueHandling.Ignore
+                });
                 var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
                 var response = await http.PostAsync(url, content);
                 if (response.IsSuccessStatusCode)
@@ -427,13 +428,13 @@ namespace UCRMTS.dll
             }
         }
 
-        public static Task<bool> BOLDraft(BolInformation bolInformation)
+        public static async Task<bool> BOL(BolInformation bolInformation)
         {
             var currentObject = new ExchangeDataPiplineDTO()
             {
                 ExchangedDocument = new ExchangedDocument()
                 {
-                    IssueDateTime = DateTime.Now,
+                    IssueDateTime = DateTime.UtcNow,
                     Issuer = new Issuer() { Id = new List<Id>() { new Id() { Content = bolInformation.IssuerID } } },
                     RoleCode = new List<RoleCode>()
                     {
@@ -445,17 +446,17 @@ namespace UCRMTS.dll
                 {
                     Id = new List<Id>()
                     {
-                         new Id(){ Content = "UCR123456789"}
+                         new Id(){ Content = bolInformation.UCR}
                       },
                     TypeCode = new DTOS.TypeCode()
                     {
-                        Content = "11"
+                        Content = bolInformation.BolTypeString,
                     },
                     Declarant = new Declarant()
                     {
                         Id = new List<Id>()
                      {
-                         new Id(){ Content ="987654321"},
+                         new Id(){ Content =bolInformation.ShipperTaxID},
                      }
                     }
                 },
@@ -468,6 +469,7 @@ namespace UCRMTS.dll
                               ScheduledOccurrenceDateTime = DateTime.Now,
                               OccurrenceLogisticsLocation = new OccurrenceLogisticsLocation()
                               {
+                                   
                                   Id = new List<Id>()
                                   {
                                       new Id() { Content = bolInformation.PortOfLoadingCode}
@@ -480,6 +482,7 @@ namespace UCRMTS.dll
                           },
                           UnloadingEvent = new UnloadingEvent()
                           {
+                              ScheduledOccurrenceDateTime = bolInformation.ETA,
                               OccurrenceLogisticsLocation = new OccurrenceLogisticsLocation()
                               {
                                   Id = new List<Id>()
@@ -513,6 +516,13 @@ namespace UCRMTS.dll
                                 },
 
                           },
+                          ArrivalEvent = new List<ArrivalEvent>()
+                          {
+                              new ArrivalEvent()
+                                {
+                                    EstimatedOccurrenceDateTime = DateTime.Now,
+                                }
+                          }
 
 
 
@@ -523,14 +533,13 @@ namespace UCRMTS.dll
                  {
                         new SpecifiedConsignment()
                         {
+
                             Id = new List<Id>()
                             {
-                                new Id() { Content = "UCR123456789"}
+                                new Id() { Content = bolInformation.UCR}
                             },
-                            GrossWeight = new List<GrossWeight>()
-                            {
-                                new GrossWeight() { Content = bolInformation.TotalGrossWeight, UnitCode = bolInformation.UnitTypeGrossWeight }
-                            },
+                            GrossWeight = bolInformation.GrossWeights.Select(a=> new GrossWeight() { Content = a.TotalGrossWeight , UnitCode = a.UnitTypeGrossWeight}).ToList(),
+                               GrossVolumns = bolInformation.GrossVolumn.Select(a=> new GrossVolumn() { Content = a.Value , UnitCode = a.UnitCode}).ToList(),
                             Carrier = new Carrier()
                             {
                                 Id = new List<Id>()
@@ -546,38 +555,134 @@ namespace UCRMTS.dll
                             {
                                 Id = new List<Id>()
                                 {
-                                    new Id() { Content = "FinalTradingCountryCode"}
+                                    new Id() { Content = bolInformation.FinalDestinationCountry}
                                 }
                             },
-                            Consignee = new Consignee()
+                           Consignee = new Consignee()
+                                {
+                                    Id = new List<Id>()
+                                    {
+                                        new Id() { Content = bolInformation.ConsgineeTaxCode },
+
+                                    },
+                                    Name = new List<Name>()
+                                    {
+                                        new Name() { Content = bolInformation.ConsgineeName }
+                                    },
+
+                                    PostalTradeAddress= new PostalTradeAddress()
+                                    {
+                                        CityName = new List<CityName>()
+                                        {
+                                            new CityName() { Content = bolInformation.ConsigneeCity }
+                                        },
+                                        CountryId = new CountryId()
+                                        {
+                                            Content =bolInformation.ConsigneeCountryCode
+                                        },
+
+                                    },
+
+
+
+                            },
+                           ConsignmentItemQuantity = new ConsignmentItemQuantity()
                             {
+                                    Content = bolInformation.TotalQuantity
+
+                             },
+                           ExportTradeCountry = new ExportTradeCountry()
+                           {
                                 Id = new List<Id>()
                                 {
-                                    new Id() { Content = "ShipperTaxCode" },
+                                    new Id() { Content =bolInformation.ExporterTradCountry}
+                                }
+                           },
+                           
+                           IncludedConsignmentItem = bolInformation.ShippingOrderInformation.Select((line,index) => new IncludedConsignmentItem()
+                           {
+                               SequenceNumeric = new SequenceNumeric()
+                               {
+                                   Content   =(index+1) .ToString()
+                               },
+                               GrossWeight = new List<GrossWeight>()
+                               {
+                                    new GrossWeight(){ Content =  line.GrossWeight , UnitCode = line.GrossWeightUnitType}
+                               },
+                               GrossVolumn = new  List<GrossVolumn>()
+                               {
+                                    new GrossVolumn(){ Content =  line.GrossVolumn , UnitCode = line.GrossVolumnUnitType}
+                               },
+                               TypeCode = new TypeCode()
+                               {
+                                   Content = line.CommodityCode
+                               },
 
-                                },
-                                Name = new List<Name>()
-                                {
-                                    new Name() { Content = "ShipperName" }
-                                },
 
-                                PostalTradeAddress= new PostalTradeAddress()
+                               NatureIdCargo = new List<NatureIdCargo>()
+                               {
+                                   new NatureIdCargo() {Content=line.CargoDescription}
+                               },
+                               PhysicalLogisticsShippingMarks = new List<PhysicalLogisticsShippingMark>()
+                               {
+                                   new PhysicalLogisticsShippingMark()
+                                   {
+                                       Marking =new List<Marking>()
+                                       {
+                                           new Marking()
+                                           {
+                                               Content = $"{line.PackageNumber} X {line.PackageType} "
+                                           }
+                                       }
+                                   }
+                               },
+
+                           }).ToList(),
+                           TransportContractReferencedDocument = new TransportContractReferencedDocument()
+                           {
+                                Id = new List<Id>()
                                 {
-                                    CityName = new List<CityName>()
+                                    new Id() { Content = bolInformation.BolNumber}
+                                 }
+                            },
+                          UtilizedLogisticsTransportEquipment = bolInformation.ContainerInformation.Select(b=> new UtilizedLogisticsTransportEquipment()
+                          {
+                                   Id = new Id()
+                                   {
+                                       Content =b.ContainerNo
+                                   },
+                                   CharacteristicCode = new CharacteristicCode(){
+                                        Content = b.ContainerType
+                                   },
+                                    GrossWeight = new GrossWeight()
                                     {
-                                        new CityName() { Content = "ShipperCity" }
+                                        Content = b.GrossWeight,
+                                        UnitCode = b.UnitTypeOfGrossWeight
                                     },
-                                },
-                            
-                                
-                        },
-                       ConsignmentItemQuantity = new ConsignmentItemQuantity()
-                        {
-                                Content = "10"
+                                    
+                                    
+                              
+                                    AffixedLogisticsSeal = b.ContainerSeals.Select((a)  =>
 
-                         }
+                                         new AffixedLogisticsSeal()
+                                         {
+                                              Id = new List<Id>()
+                                              {
+                                                  new Id() { Content = a.Serial}
+                                              },
+                                             
+                                         }
+                                    ).ToList()
 
-                 } }
+
+                         }).ToList()
+
+
+                },
+
+
+            }
+
             };
             
 
@@ -586,7 +691,7 @@ namespace UCRMTS.dll
 
         
            
-            return AddingConsignments(currentObject);
+            return await AddingConsignments(currentObject);
         }
 
         public static async Task<bool> UploadMainfest(string filePath)

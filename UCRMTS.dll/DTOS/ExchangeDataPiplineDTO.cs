@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Security.Permissions;
 
 namespace UCRMTS.dll.DTOS
 {
@@ -19,11 +20,15 @@ namespace UCRMTS.dll.DTOS
         [JsonProperty("id")]
         public List<Id> Id { get; set; }
 
-        [JsonProperty("conditionCode")]
-        public List<ConditionCode> ConditionCode { get; set; }
-
         [JsonProperty("sealingPartyRoleCode")]
-        public SealingPartyRoleCode SealingPartyRoleCode { get; set; }
+        public AffixedLogisticsSealId SealingPartyRoleCode { get; set; }
+
+
+    }
+    public class AffixedLogisticsSealId
+    {
+        [JsonProperty("content")]
+        public string Content { get; set; }
     }
 
     public class Carrier
@@ -174,6 +179,8 @@ namespace UCRMTS.dll.DTOS
 
         [JsonProperty("netWeight")]
         public List<NetWeight> NetWeight { get; set; }
+        [JsonProperty("grossVolume")]
+        public List<GrossVolumn> GrossVolumn { get; set; }
 
         [JsonProperty("natureIdCargo")]
         public List<NatureIdCargo> NatureIdCargo { get; set; }
@@ -229,6 +236,9 @@ namespace UCRMTS.dll.DTOS
         [JsonProperty("unitCode")]
         public string UnitCode { get; set; }
     }
+
+  
+
 
     public class OccurrenceLogisticsLocation
     {
@@ -309,6 +319,8 @@ namespace UCRMTS.dll.DTOS
 
         [JsonProperty("grossWeight")]
         public List<GrossWeight> GrossWeight { get; set; }
+        [JsonProperty("grossVolume")]
+        public List<GrossVolumn> GrossVolumns { get; set; }
 
         [JsonProperty("netWeight")]
         public List<NetWeight> NetWeight { get; set; }
@@ -441,13 +453,23 @@ namespace UCRMTS.dll.DTOS
         public RegistrationTradeCountry RegistrationTradeCountry { get; set; }
     }
 
+    public class GrossVolumn
+    {
+        [JsonProperty("content")]
+        public string Content { get; set; }
+        [JsonProperty("unitCode")]
+        public string UnitCode { get; set; }
+    }
+
     public class UtilizedLogisticsTransportEquipment
     {
         [JsonProperty("id")]
-        public List<Id> Id { get; set; }
+        public Id Id { get; set; }
 
         [JsonProperty("grossWeight")]
         public GrossWeight GrossWeight { get; set; }
+
+ 
 
         [JsonProperty("tareWeight")]
         public TareWeight TareWeight { get; set; }
