@@ -20,16 +20,16 @@ namespace UCRMTS.dll.Implementation
             IFCSUMManifestInterchange elements = Parse(interchange);
             var adapter = new IFCSumAdapter(elements);
             return adapter.GetEDI();
-
         }
 
-        public string Serilize<T>(T ifcsum)
+
+        public string Serilize<T>(T value)
         {
-            if (!(ifcsum is  IFCSUMManifestInterchange))
+            if (!(value is IFCSUMManifestInterchange))
             {
                 throw new Exception("The Edi is not Compatiable");
             }
-            var interchange = ifcsum as IFCSUMManifestInterchange;
+            var interchange = value as IFCSUMManifestInterchange;
             var adapter = new IFCSumAdapter(interchange);
             var cuscare = adapter.GetEDI();
             using (var writer = new StringWriter())
@@ -37,10 +37,9 @@ namespace UCRMTS.dll.Implementation
                 serializer.Serialize(writer, grammar, cuscare);
                 return writer.ToString();
             }
-                
 
-          
         }
+
 
 
         private IFCSUMManifestInterchange Parse(string rawManifest)
@@ -51,7 +50,6 @@ namespace UCRMTS.dll.Implementation
             var interchange = new IFCSUMManifestInterchange();
             IFCSUMConsignment currentConsignment = null;
 
-
             var lines = rawManifest
                 .Split(new[] { "'\r\n", "'\n", "'" }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(l => l.Trim())
@@ -59,7 +57,6 @@ namespace UCRMTS.dll.Implementation
 
             foreach (var line in lines)
             {
-
                 var colonIdx = line.IndexOf(':');
                 if (colonIdx < 0) continue;
 
@@ -83,7 +80,6 @@ namespace UCRMTS.dll.Implementation
                         break;
 
                     case "12":
-                        // Flush previous consignment
                         if (currentConsignment != null)
                         {
                             currentConsignment.ProcessDescription();
@@ -148,7 +144,7 @@ namespace UCRMTS.dll.Implementation
                 }
             }
 
-            // Safety flush if no 99 segment
+            // Safety flush for files that end without tag 99
             if (currentConsignment != null)
             {
                 currentConsignment.ProcessDescription();
@@ -157,6 +153,13 @@ namespace UCRMTS.dll.Implementation
 
             return interchange;
         }
+
+   
+
+
+
+    
+
 
         private void ParseInterchangeHeader(IFCSUMManifestInterchange ic, List<string> f)
         {
@@ -168,14 +171,12 @@ namespace UCRMTS.dll.Implementation
             ic.InterchangeControl = f.ElementAtOrDefault(5);
         }
 
-
         private VoyageInformation ParseVoyage(List<string> f)
         {
             return new VoyageInformation
             {
                 VesselCode = f.ElementAtOrDefault(0),
                 VesselName = f.ElementAtOrDefault(1),
-                // field index 2 = call sign (HN), 3 = voyage
                 VoyageNumber = f.ElementAtOrDefault(3),
                 DepartureDate = ParseDate8(f.ElementAtOrDefault(6)),
                 ArrivalDate = ParseDate8(f.ElementAtOrDefault(7)),
@@ -190,7 +191,7 @@ namespace UCRMTS.dll.Implementation
             return new IFCSUMConsignment
             {
                 BillOfLadingNumber = f.ElementAtOrDefault(0),
-                // fields 1-3 are blank in sample data
+                // fields 1–3 are blank in the format
                 OriginPortCode = f.ElementAtOrDefault(4),
                 OriginPortName = f.ElementAtOrDefault(5),
                 PlaceOfReceiptCode = f.ElementAtOrDefault(6),
@@ -201,7 +202,6 @@ namespace UCRMTS.dll.Implementation
             };
         }
 
-
         private static void ParseDischarge(IFCSUMConsignment c, List<string> f)
         {
             c.DischargePortCode = f.ElementAtOrDefault(0);
@@ -209,7 +209,6 @@ namespace UCRMTS.dll.Implementation
             c.FinalDestCode = f.ElementAtOrDefault(2);
             c.FinalDestName = f.ElementAtOrDefault(3);
         }
-
 
         private static ChargeItem ParseCharge(List<string> f)
         {
@@ -228,30 +227,22 @@ namespace UCRMTS.dll.Implementation
             };
         }
 
-
         private IFCSUMParty ParseParty(string role, List<string> f)
         {
-            // Name is always the first non-empty field after index 0
             string name = null;
             int nameIdx = -1;
+
             for (int i = 1; i < f.Count; i++)
             {
                 var v = CleanField(f[i]);
-                if (!string.IsNullOrWhiteSpace(v))
-                {
-                    name = v;
-                    nameIdx = i;
-                    break;
-                }
+                if (!string.IsNullOrWhiteSpace(v)) { name = v; nameIdx = i; break; }
             }
-
 
             string address = nameIdx >= 0
                 ? string.Join(" ", f.Skip(nameIdx + 1)
                     .Select(CleanField)
                     .Where(x => !string.IsNullOrWhiteSpace(x)))
                 : string.Empty;
-
 
             string fullBlock = (name ?? "") + " " + address;
 
@@ -270,19 +261,16 @@ namespace UCRMTS.dll.Implementation
                 Address = address,
             };
         }
+
         public static string GetRoleName(string roleId)
         {
             switch (roleId)
             {
-                case "16":
-                    return "Shipper";
-                case "17":
-                    return "Consignee";
-                default:
-                    return "NotifyParty";
+                case "16": return "Shipper";
+                case "17": return "Consignee";
+                default: return "NotifyParty";
             }
         }
-
 
         private GoodsSummary ParseGoodsSummary(List<string> f)
         {
@@ -297,7 +285,6 @@ namespace UCRMTS.dll.Implementation
                 Volume = ParseDecimal(f.ElementAtOrDefault(7)),
             };
         }
-
 
         private IFCSUMEquipment ParseEquipment(List<string> f)
         {
@@ -314,31 +301,22 @@ namespace UCRMTS.dll.Implementation
             };
         }
 
+ 
 
         private static List<string> SplitFields(string payload)
         {
             var result = new List<string>();
-            var current = new System.Text.StringBuilder();
+            var current = new StringBuilder();
             bool inQuote = false;
 
             for (int i = 0; i < payload.Length; i++)
             {
                 char c = payload[i];
-                if (c == '"')
-                {
-                    inQuote = !inQuote;
-                    // skip the quote character itself
-                }
-                else if (c == ':' && !inQuote)
-                {
-                    result.Add(current.ToString());
-                    current.Clear();
-                }
-                else
-                {
-                    current.Append(c);
-                }
+                if (c == '"') { inQuote = !inQuote; }
+                else if (c == ':' && !inQuote) { result.Add(current.ToString()); current.Clear(); }
+                else { current.Append(c); }
             }
+
             result.Add(current.ToString());
             return result;
         }
@@ -356,13 +334,13 @@ namespace UCRMTS.dll.Implementation
             return null;
         }
 
-        private static decimal? ParseDecimal(string s)
+        private static decimal ParseDecimal(string s)
         {
             if (decimal.TryParse(s?.Replace(",", ""),
                 System.Globalization.NumberStyles.Any,
                 System.Globalization.CultureInfo.InvariantCulture, out var v))
                 return v;
-            return null;
+            return 0m;
         }
 
         private static int? ParseInt(string s)
@@ -370,5 +348,15 @@ namespace UCRMTS.dll.Implementation
             if (int.TryParse(s, out var v)) return v;
             return null;
         }
+
+        private static IEnumerable<string> ChunkText(string text, int size)
+        {
+            for (int i = 0; i < text.Length; i += size)
+                yield return text.Substring(i, Math.Min(size, text.Length - i));
+        }
     }
+
+
+
+
 }

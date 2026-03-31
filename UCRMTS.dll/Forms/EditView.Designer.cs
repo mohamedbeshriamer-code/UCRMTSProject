@@ -34,6 +34,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.DepartureDatepicker = new System.Windows.Forms.DateTimePicker();
+            this.ArrivelDatePicker = new System.Windows.Forms.DateTimePicker();
             this.txtPod = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPortOfReceiptCode = new System.Windows.Forms.TextBox();
@@ -67,10 +71,6 @@
             this.flowPanelControl = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.gridContainers = new System.Windows.Forms.DataGridView();
-            this.ArrivelDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.DepartureDatepicker = new System.Windows.Forms.DateTimePicker();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -80,9 +80,9 @@
             // 
             // btnUpload
             // 
-            this.btnUpload.Location = new System.Drawing.Point(3, 3);
+            this.btnUpload.Location = new System.Drawing.Point(3, 7);
             this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(204, 43);
+            this.btnUpload.Size = new System.Drawing.Size(204, 30);
             this.btnUpload.TabIndex = 0;
             this.btnUpload.Text = "Convert";
             this.btnUpload.UseVisualStyleBackColor = true;
@@ -96,14 +96,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1228, 54);
+            this.panel1.Size = new System.Drawing.Size(1242, 45);
             this.panel1.TabIndex = 1;
             // 
             // btnSendMTS
             // 
-            this.btnSendMTS.Location = new System.Drawing.Point(423, 3);
+            this.btnSendMTS.Location = new System.Drawing.Point(423, 6);
             this.btnSendMTS.Name = "btnSendMTS";
-            this.btnSendMTS.Size = new System.Drawing.Size(204, 43);
+            this.btnSendMTS.Size = new System.Drawing.Size(204, 33);
             this.btnSendMTS.TabIndex = 2;
             this.btnSendMTS.Text = "SendMTS";
             this.btnSendMTS.UseVisualStyleBackColor = true;
@@ -111,9 +111,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(213, 0);
+            this.button1.Location = new System.Drawing.Point(213, 6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(204, 43);
+            this.button1.Size = new System.Drawing.Size(204, 33);
             this.button1.TabIndex = 1;
             this.button1.Text = "Generate EDI Cascare 95 B";
             this.button1.UseVisualStyleBackColor = true;
@@ -125,9 +125,9 @@
             this.panel2.Controls.Add(this.flowPanelControl);
             this.panel2.Controls.Add(this.groupBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 54);
+            this.panel2.Location = new System.Drawing.Point(0, 45);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1228, 841);
+            this.panel2.Size = new System.Drawing.Size(1242, 850);
             this.panel2.TabIndex = 2;
             // 
             // groupBox2
@@ -173,10 +173,43 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Basic information";
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(901, 47);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(86, 13);
+            this.label17.TabIndex = 22;
+            this.label17.Text = "Departure Date :";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(919, 16);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(68, 13);
+            this.label16.TabIndex = 21;
+            this.label16.Text = "Arrivel Date :";
+            // 
+            // DepartureDatepicker
+            // 
+            this.DepartureDatepicker.Location = new System.Drawing.Point(987, 44);
+            this.DepartureDatepicker.Name = "DepartureDatepicker";
+            this.DepartureDatepicker.Size = new System.Drawing.Size(200, 20);
+            this.DepartureDatepicker.TabIndex = 20;
+            // 
+            // ArrivelDatePicker
+            // 
+            this.ArrivelDatePicker.Location = new System.Drawing.Point(987, 12);
+            this.ArrivelDatePicker.Name = "ArrivelDatePicker";
+            this.ArrivelDatePicker.Size = new System.Drawing.Size(200, 20);
+            this.ArrivelDatePicker.TabIndex = 19;
+            // 
             // txtPod
             // 
             this.txtPod.Location = new System.Drawing.Point(698, 113);
             this.txtPod.Name = "txtPod";
+            this.txtPod.ReadOnly = true;
             this.txtPod.Size = new System.Drawing.Size(222, 20);
             this.txtPod.TabIndex = 12;
             // 
@@ -193,6 +226,7 @@
             // 
             this.txtPortOfReceiptCode.Location = new System.Drawing.Point(748, 87);
             this.txtPortOfReceiptCode.Name = "txtPortOfReceiptCode";
+            this.txtPortOfReceiptCode.ReadOnly = true;
             this.txtPortOfReceiptCode.Size = new System.Drawing.Size(222, 20);
             this.txtPortOfReceiptCode.TabIndex = 18;
             // 
@@ -200,6 +234,7 @@
             // 
             this.txtSender.Location = new System.Drawing.Point(79, 19);
             this.txtSender.Name = "txtSender";
+            this.txtSender.ReadOnly = true;
             this.txtSender.Size = new System.Drawing.Size(222, 20);
             this.txtSender.TabIndex = 2;
             // 
@@ -225,6 +260,7 @@
             // 
             this.txtPortOfRecipt.Location = new System.Drawing.Point(394, 91);
             this.txtPortOfRecipt.Name = "txtPortOfRecipt";
+            this.txtPortOfRecipt.ReadOnly = true;
             this.txtPortOfRecipt.Size = new System.Drawing.Size(222, 20);
             this.txtPortOfRecipt.TabIndex = 16;
             // 
@@ -232,6 +268,7 @@
             // 
             this.txtCarrierCode.Location = new System.Drawing.Point(394, 19);
             this.txtCarrierCode.Name = "txtCarrierCode";
+            this.txtCarrierCode.ReadOnly = true;
             this.txtCarrierCode.Size = new System.Drawing.Size(222, 20);
             this.txtCarrierCode.TabIndex = 2;
             // 
@@ -257,13 +294,16 @@
             // 
             this.txtPodCode.Location = new System.Drawing.Point(79, 87);
             this.txtPodCode.Name = "txtPodCode";
+            this.txtPodCode.ReadOnly = true;
             this.txtPodCode.Size = new System.Drawing.Size(222, 20);
             this.txtPodCode.TabIndex = 14;
             // 
             // txtVessel
             // 
+            this.txtVessel.Enabled = false;
             this.txtVessel.Location = new System.Drawing.Point(672, 12);
             this.txtVessel.Name = "txtVessel";
+            this.txtVessel.ReadOnly = true;
             this.txtVessel.Size = new System.Drawing.Size(222, 20);
             this.txtVessel.TabIndex = 2;
             // 
@@ -316,6 +356,7 @@
             // 
             this.txtPolCode.Location = new System.Drawing.Point(394, 113);
             this.txtPolCode.Name = "txtPolCode";
+            this.txtPolCode.ReadOnly = true;
             this.txtPolCode.Size = new System.Drawing.Size(222, 20);
             this.txtPolCode.TabIndex = 10;
             // 
@@ -323,6 +364,7 @@
             // 
             this.txtReciver.Location = new System.Drawing.Point(79, 41);
             this.txtReciver.Name = "txtReciver";
+            this.txtReciver.ReadOnly = true;
             this.txtReciver.Size = new System.Drawing.Size(222, 20);
             this.txtReciver.TabIndex = 4;
             // 
@@ -339,6 +381,7 @@
             // 
             this.txtCarrierId.Location = new System.Drawing.Point(394, 44);
             this.txtCarrierId.Name = "txtCarrierId";
+            this.txtCarrierId.ReadOnly = true;
             this.txtCarrierId.Size = new System.Drawing.Size(222, 20);
             this.txtCarrierId.TabIndex = 4;
             // 
@@ -346,6 +389,7 @@
             // 
             this.txtPolName.Location = new System.Drawing.Point(80, 113);
             this.txtPolName.Name = "txtPolName";
+            this.txtPolName.ReadOnly = true;
             this.txtPolName.Size = new System.Drawing.Size(222, 20);
             this.txtPolName.TabIndex = 8;
             // 
@@ -353,6 +397,7 @@
             // 
             this.txtImo.Location = new System.Drawing.Point(672, 41);
             this.txtImo.Name = "txtImo";
+            this.txtImo.ReadOnly = true;
             this.txtImo.Size = new System.Drawing.Size(222, 20);
             this.txtImo.TabIndex = 4;
             // 
@@ -378,6 +423,7 @@
             // 
             this.txtVoage.Location = new System.Drawing.Point(672, 64);
             this.txtVoage.Name = "txtVoage";
+            this.txtVoage.ReadOnly = true;
             this.txtVoage.Size = new System.Drawing.Size(222, 20);
             this.txtVoage.TabIndex = 6;
             // 
@@ -394,6 +440,7 @@
             // 
             this.txtTradeCountry.Location = new System.Drawing.Point(394, 67);
             this.txtTradeCountry.Name = "txtTradeCountry";
+            this.txtTradeCountry.ReadOnly = true;
             this.txtTradeCountry.Size = new System.Drawing.Size(222, 20);
             this.txtTradeCountry.TabIndex = 6;
             // 
@@ -410,6 +457,7 @@
             // 
             this.txtDate.Location = new System.Drawing.Point(79, 64);
             this.txtDate.Name = "txtDate";
+            this.txtDate.ReadOnly = true;
             this.txtDate.Size = new System.Drawing.Size(222, 20);
             this.txtDate.TabIndex = 6;
             // 
@@ -426,7 +474,8 @@
             this.groupBox1.Controls.Add(this.gridContainers);
             this.groupBox1.Location = new System.Drawing.Point(9, 187);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1203, 302);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(10);
+            this.groupBox1.Size = new System.Drawing.Size(1221, 302);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Containers";
@@ -435,48 +484,16 @@
             // 
             this.gridContainers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridContainers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridContainers.Location = new System.Drawing.Point(3, 16);
+            this.gridContainers.Location = new System.Drawing.Point(10, 23);
             this.gridContainers.Name = "gridContainers";
-            this.gridContainers.Size = new System.Drawing.Size(1197, 283);
+            this.gridContainers.Size = new System.Drawing.Size(1201, 269);
             this.gridContainers.TabIndex = 0;
-            // 
-            // ArrivelDatePicker
-            // 
-            this.ArrivelDatePicker.Location = new System.Drawing.Point(987, 12);
-            this.ArrivelDatePicker.Name = "ArrivelDatePicker";
-            this.ArrivelDatePicker.Size = new System.Drawing.Size(200, 20);
-            this.ArrivelDatePicker.TabIndex = 19;
-            // 
-            // DepartureDatepicker
-            // 
-            this.DepartureDatepicker.Location = new System.Drawing.Point(987, 44);
-            this.DepartureDatepicker.Name = "DepartureDatepicker";
-            this.DepartureDatepicker.Size = new System.Drawing.Size(200, 20);
-            this.DepartureDatepicker.TabIndex = 20;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(919, 16);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(68, 13);
-            this.label16.TabIndex = 21;
-            this.label16.Text = "Arrivel Date :";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(901, 47);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(86, 13);
-            this.label17.TabIndex = 22;
-            this.label17.Text = "Departure Date :";
             // 
             // EditView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1228, 895);
+            this.ClientSize = new System.Drawing.Size(1242, 895);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;

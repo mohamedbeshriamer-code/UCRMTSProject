@@ -111,12 +111,16 @@ namespace UCRMTS.dll.Models
             get
             {
                 var loc = Locations?.FirstOrDefault(a => a.Qualifier == "9");
-               
-                return new LocationData()
+                if (loc != null)
                 {
-                    PortCode = loc.LocationCode,
-                    PortName = loc.LocationName,
-                };
+                    return new LocationData()
+                    {
+                        PortCode = loc.LocationCode,
+                        PortName = loc.LocationName,
+                    };
+
+                }
+                return new LocationData();
 
 
             }

@@ -76,7 +76,7 @@ namespace UCRMTS.dll.Implementation
             if (first == null) return null;
             return new LocationSegment
             {
-                Qualifier = "60",
+                Qualifier = "11",
                 LocationCode = first.OriginPortCode,
                 LocationName = first.OriginPortName,
             };
@@ -88,7 +88,7 @@ namespace UCRMTS.dll.Implementation
             if (first == null) return null;
             return new LocationSegment
             {
-                Qualifier = "11",
+                Qualifier = "9",
                 LocationCode = first.DischargePortCode,
                 LocationName = first.DischargePortName,
             };
@@ -100,7 +100,7 @@ namespace UCRMTS.dll.Implementation
             if (v == null) return null;
             return new LocationSegment
             {
-                Qualifier = "9",
+                Qualifier = "60",
                 LocationCode = v.PortOfCallCode,
                 LocationName = v.PortOfCallName,
             };

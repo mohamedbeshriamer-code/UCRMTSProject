@@ -22,6 +22,7 @@ namespace UCRMTS.dll.Forms
         public EditView()
         {
             InitializeComponent();
+            gridContainers.ReadOnly = true;
         }
 
         private void btnUpload_Click(object sender, EventArgs e)
@@ -50,7 +51,11 @@ namespace UCRMTS.dll.Forms
                     txtPolName.Text = data?.TransportInformation.PortOfLoading?.LocationName;
                     txtPolCode.Text = data?.TransportInformation.PortOfLoading?.LocationCode;
                     txtPod.Text = data?.TransportInformation.PortOfDischarge?.LocationName;
-                    ArrivelDatePicker.Value = data.TransportInformation.ArrivalDate.Date;
+                    if(data.TransportInformation.ArrivalDate != null)
+                    {
+                        ArrivelDatePicker.Value = data.TransportInformation.ArrivalDate.Date;
+                    }
+                
                     if(data.TransportInformation.DepartureDate != null)
                     {
                         DepartureDatepicker.Value = data.TransportInformation.DepartureDate.Date;
@@ -93,6 +98,9 @@ namespace UCRMTS.dll.Forms
             ProcessHeaderData();
             using (SaveFileDialog fileDialog = new SaveFileDialog())
             {
+                fileDialog.Filter = "EDI files (*.edi)|*.edi";
+                fileDialog.DefaultExt = "edi";
+                fileDialog.AddExtension = true;
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
                     eDIService.Selialize(fileDialog.FileName, data);
