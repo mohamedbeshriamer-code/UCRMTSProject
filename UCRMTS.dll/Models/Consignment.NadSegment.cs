@@ -4,7 +4,7 @@ namespace UCRMTS.dll.Models
 {
 
         [EdiSegment, EdiPath("NAD")]
-        public class NadSegment
+        public class NadSegmentQ
         {
             [EdiValue("X(3)", Path = "NAD/0")]
             public string PartyQualifier { get; set; }

@@ -198,7 +198,7 @@ namespace UCRMTS.dll.Implementation
         }
 
         // ── NadSegment mapping ───────────────────────────────────────
-        private static NadSegment MapParty(IFCSUMParty src, string qualifier)
+        private static NadSegmentQ MapParty(IFCSUMParty src, string qualifier)
         {
             if (src == null) return null;
 
@@ -219,7 +219,7 @@ namespace UCRMTS.dll.Implementation
                 }
             }
 
-            return new NadSegment
+            return new NadSegmentQ
             {
                 PartyQualifier = qualifier,
                 PartyId = src.PartyId,

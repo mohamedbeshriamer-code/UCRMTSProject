@@ -78,7 +78,7 @@ namespace UCRMTS.dll.Models
 
     [EdiSegmentGroup("CNI")]
 
-    public partial class Consignment
+    public  class Consignment
 
     {
 
@@ -147,15 +147,15 @@ namespace UCRMTS.dll.Models
 
         [EdiCondition("CZ", Path = "NAD/0")]
 
-        public NadSegment Shipper { get; set; }
+        public NadSegmentQ Shipper { get; set; }
 
         [EdiCondition("CN", Path = "NAD/0")]
 
-        public NadSegment Consignee { get; set; }
+        public NadSegmentQ Consignee { get; set; }
 
         [EdiCondition("N1", Path = "NAD/0")]
 
-        public NadSegment NotifyParty { get; set; }
+        public NadSegmentQ NotifyParty { get; set; }
 
 
 
