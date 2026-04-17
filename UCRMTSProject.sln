@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UCRDemo", "UCRDemo\UCRDemo.
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UCRBusineesExample", "UCRBusineesExample\UCRBusineesExample.vbproj", "{A9ADAEF9-448B-4C72-8110-29DEB163C23A}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WindowsApp1", "WindowsApp1\WindowsApp1.vbproj", "{4138EA52-156D-4FEB-8A6B-9BC6DBD96BF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A9ADAEF9-448B-4C72-8110-29DEB163C23A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9ADAEF9-448B-4C72-8110-29DEB163C23A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9ADAEF9-448B-4C72-8110-29DEB163C23A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4138EA52-156D-4FEB-8A6B-9BC6DBD96BF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4138EA52-156D-4FEB-8A6B-9BC6DBD96BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4138EA52-156D-4FEB-8A6B-9BC6DBD96BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4138EA52-156D-4FEB-8A6B-9BC6DBD96BF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

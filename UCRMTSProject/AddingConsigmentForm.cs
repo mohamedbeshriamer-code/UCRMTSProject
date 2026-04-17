@@ -49,17 +49,7 @@ namespace UCRMTSProject
                 ETA = DateTime.Parse("0001-01-01T00:00:00"),
                 ATA = DateTime.Parse("0001-01-01T00:00:00"),
 
-                GrossWeights = new List<GrossWeightBOL>
-    {
-        new GrossWeightBOL { TotalGrossWeight = "212208", UnitTypeGrossWeight = "KGs" },
-        new GrossWeightBOL { TotalGrossWeight = "212208", UnitTypeGrossWeight = "KGs" },
-        new GrossWeightBOL { TotalGrossWeight = "212208", UnitTypeGrossWeight = "KGs" },
-        new GrossWeightBOL { TotalGrossWeight = "212208", UnitTypeGrossWeight = "KGs" },
-        new GrossWeightBOL { TotalGrossWeight = "212208", UnitTypeGrossWeight = "KGs" },
-        new GrossWeightBOL { TotalGrossWeight = "212208", UnitTypeGrossWeight = "KGs" },
-        new GrossWeightBOL { TotalGrossWeight = "212208", UnitTypeGrossWeight = "KGs" },
-        new GrossWeightBOL { TotalGrossWeight = "212208", UnitTypeGrossWeight = "KGs" }
-    },
+            //    IssuerID = "204829305",
 
                 GrossVolumn = new List<GrossVolumnBOL>
     {
@@ -73,184 +63,145 @@ namespace UCRMTSProject
         new GrossVolumnBOL { UnitCode = "CBM", Value = "200" }
     },
 
-                ShippingOrderInformation = null,
+            //    BolType = BolType.Final,
 
-                ContainerInformation = new List<ContainerInformation>
-    {
-        new ContainerInformation
-        {
-            ContainerNo           = "CAXU 684483 0",
-            ContainerType         = "20DV",
-            GrossWeight           = "26525.625",
-            UnitTypeOfGrossWeight = "212208",
-            GrossWeightUnitType   = "212208",
-            GrossVolumn           = "0",
-            GrossVolumnUnitType   = "CBM",
-            CommodityCode         = "TALC LUMPS",
-            Description           = "",
-            ContainerSeals = new List<ContainerSeals>
-            {
-                new ContainerSeals { Serial = "", Condition = "CN" }
-            }
-        },
-        new ContainerInformation
-        {
-            ContainerNo           = "WFHU 137845 8",
-            ContainerType         = "20DV",
-            GrossWeight           = "26525.625",
-            UnitTypeOfGrossWeight = "212208",
-            GrossWeightUnitType   = "212208",
-            GrossVolumn           = "0",
-            GrossVolumnUnitType   = "CBM",
-            CommodityCode         = "TALC LUMPS",
-            Description           = "TALC LUMPS IN 168 BIG BAGS",
-            ContainerSeals = new List<ContainerSeals>
-            {
-                new ContainerSeals { Serial = "", Condition = "CN" }
-            }
-        },
-        new ContainerInformation
-        {
-            ContainerNo           = "CAXU 627065 0",
-            ContainerType         = "20DV",
-            GrossWeight           = "26525.625",
-            UnitTypeOfGrossWeight = "212208",
-            GrossWeightUnitType   = "212208",
-            GrossVolumn           = "0",
-            GrossVolumnUnitType   = "CBM",
-            CommodityCode         = "TALC LUMPS",
-            Description           = "",
-            ContainerSeals = new List<ContainerSeals>
-            {
-                new ContainerSeals { Serial = "", Condition = "CN" }
-            }
-        },
-        new ContainerInformation
-        {
-            ContainerNo           = "WFHU 136367 4",
-            ContainerType         = "20DV",
-            GrossWeight           = "26525.625",
-            UnitTypeOfGrossWeight = "212208",
-            GrossWeightUnitType   = "212208",
-            GrossVolumn           = "0",
-            GrossVolumnUnitType   = "CBM",
-            CommodityCode         = "TALC LUMPS",
-            Description           = "",
-            ContainerSeals = new List<ContainerSeals>
-            {
-                new ContainerSeals { Serial = "", Condition = "CN" }
-            }
-        },
-        new ContainerInformation
-        {
-            ContainerNo           = "TRKU 203366 2",
-            ContainerType         = "20DV",
-            GrossWeight           = "26525.625",
-            UnitTypeOfGrossWeight = "212208",
-            GrossWeightUnitType   = "212208",
-            GrossVolumn           = "0",
-            GrossVolumnUnitType   = "CBM",
-            CommodityCode         = "TALC LUMPS",
-            Description           = "",
-            ContainerSeals = new List<ContainerSeals>
-            {
-                new ContainerSeals { Serial = "", Condition = "CN" }
-            }
-        },
-        new ContainerInformation
-        {
-            ContainerNo           = "WFHU 137490 9",
-            ContainerType         = "20DV",
-            GrossWeight           = "26525.625",
-            UnitTypeOfGrossWeight = "212208",
-            GrossWeightUnitType   = "212208",
-            GrossVolumn           = "0",
-            GrossVolumnUnitType   = "CBM",
-            CommodityCode         = "TALC LUMPS",
-            Description           = "",
-            ContainerSeals = new List<ContainerSeals>
-            {
-                new ContainerSeals { Serial = "", Condition = "CN" }
-            }
-        },
-        new ContainerInformation
-        {
-            ContainerNo           = "WFHU 137595 2",
-            ContainerType         = "20DV",
-            GrossWeight           = "26525.625",
-            UnitTypeOfGrossWeight = "212208",
-            GrossWeightUnitType   = "212208",
-            GrossVolumn           = "0",
-            GrossVolumnUnitType   = "CBM",
-            CommodityCode         = "TALC LUMPS",
-            Description           = "",
-            ContainerSeals = new List<ContainerSeals>
-            {
-                new ContainerSeals { Serial = "", Condition = "CN" }
-            }
-        },
-        new ContainerInformation
-        {
-            ContainerNo           = "TRKU 205101 2",
-            ContainerType         = "20DV",
-            GrossWeight           = "26525.625",
-            UnitTypeOfGrossWeight = "212208",
-            GrossWeightUnitType   = "212208",
-            GrossVolumn           = "0",
-            GrossVolumnUnitType   = "CBM",
-            CommodityCode         = "TALC LUMPS",
-            Description           = "",
-            ContainerSeals = new List<ContainerSeals>
-            {
-                new ContainerSeals { Serial = "", Condition = "CN" }
-            }
-        }
-    }
-            };
+
+            //    UCR = "3742795351004720042",
+            //    CarrierID = "YML",
+            //    CarrierName = "YANG MING",
+            //    ShipperTaxID = "CON123456",
+            //    BolNumber = "MAEU123456789",
+
+
+            //    ConsgineeName = "XYZ IMPORTS BV",
+            //    ConsigneeCity = "Rotterdam",
+            //    ConsigneeCountryCode = "NL",
+            //    ConsgineeTaxCode = "",
+
+
+            //    PortOfLoadingCode = "EGEDK",
+            //    PortOfLoadingName = "El Dekheila Port, Egypt",
+            //    PortOfDischargeCode = "NLRTM",
+            //    PortOfDischargeName = "Rotterdam, Netherlands",
+
+
+            //    VesselImo = "9270476",
+            //    VesselTitle = "XIN XIA MEN",
+
+
+            //    TotalGrossWeight = "25000",
+            //    TotalCBM = "55",
+            //    UnitTypeOfCBM = "MTQ",
+            //    TotalQuantity = "100",
+
+
+            //    FinalDestinationCountry = "NL",
+            //    ExporterTradCountry = "EG",
+
+
+            //    ETA = DateTime.Parse("2024-10-15T08:00:00Z"),
+            //    ATA = DateTime.Parse("2024-10-01T12:00:00Z"), // departureEvent actualOccurrenceDateTime
+
+
+            //    GrossWeights = new List<GrossWeightBOL>
+            //    {
+            //        new GrossWeightBOL
+            //        {
+            //            TotalGrossWeight    = "25000",
+            //            UnitTypeGrossWeight = "KGM"
+            //        }
+            //    },
+            //    GrossVolumn = new List<GrossVolumnBOL>()
+            //    {
+            //        new GrossVolumnBOL()
+            //        {
+            //            UnitCode = "MTQ",
+            //            Value = "55"
+            //        }
+            //    }
+            //    ,
+
+
 
             bolInformation.ShippingOrderInformation = new List<ShippingOrderInformation>();
 
+            //    ShippingOrderInformation = new List<ShippingOrderInformation>
+            //        {
+            //            new ShippingOrderInformation
+            //            {
+            //                Sequance         = 1,
+            //                CargoDescription = "Clove Seeds",
+            //                NOS              = "120922",       // typeCode
+            //                Title            = "1 X 20DC DRY CARGO CONTAINER", // physicalLogisticsShippingMarks
+            //                PackageNumber    = "50",           // transportLogisticsPackage.itemQuantity
+            //                PackageType      = "TV"            // transportLogisticsPackage.typeCode,
+            //                ,
+            //                CommodityCode = "120922",
+            //                GrossVolumn = "55",
+            //                GrossVolumnUnitType = "MTQ",
+            //                 GrossWeight = "25000",
+            //                 GrossWeightUnitType = "KGM",
 
             bolInformation.ShippingOrderInformation.Add(new ShippingOrderInformation
             {
 
-                Sequance = 1,
-                CargoDescription = "TALC LUMPS",
-                NOS = "250510",
-                Title = "8 X 20DV DRY CARGO CONTAINER",
-                PackageNumber = "80",
-                PackageType = "BG",
-                CommodityCode = "250510",
-                GrossVolumn = "200",
-                GrossVolumnUnitType = "CBM",
-                GrossWeight = "212208",
-                GrossWeightUnitType = "KGM"
-            });
+            //            }
+            //        },
 
+            //    // Container — from utilizedLogisticsTransportEquipment
+            //    ContainerInformation = new List<ContainerInformation>
+            //    {
+            //    {
+            //        new ContainerInformation
+            //        {
+            //            ContainerNo           = "MSCU7654321",
+            //            ContainerType         = "22G1",        // characteristicCode
+            //            GrossWeight           = "28000",
+            //            UnitTypeOfGrossWeight = "KGM",
+            //             GrossVolumn           = "60",
+            //             GrossVolumnUnitType = "MTQ",
+            //             CommodityCode         = "120922",       // typeCode
+            //               Description  = "Clove Seeds",
+            //                GrossWeightUnitType = "KGM",
+            //            ContainerSeals = new List<ContainerSeals>
+            //            {
+            //                new ContainerSeals
+            //                {
+            //                    Serial    = "SEAL12345",
+            //                    Condition = "CA"               // sealingPartyRoleCode
+            //                }
+            //            }
+            //            }
 
-            var result = await MTSRequests.BOL(bolInformation);
-            if (result)
-            {
-                MessageBox.Show("BOL information sent successfully!");
-            }
+            //        }
+            //    }
+            //};
 
             //var cascare = new UCRMTS.dll.Models.CuscarInterchange();
 
-            //// we will do mappings
-            //cascare.Equipments = new List<UCRMTS.dll.Models.EquipmentGroup>();
-            //cascare.Consignments = new List<UCRMTS.dll.Models.Consignment>();
-            //cascare.Date = new UCRMTS.dll.Models.DtmSegment
+            //var result = await MTSRequests.BOL(bolInformation);
+            //if (result)
             //{
-            //    Date = DateTime.Now,
-            //    FormatQualifier = "203",
-            //    Qualifier = "137"
-            //};
-            //cascare.TransportInformation = new UCRMTS.dll.Models.TransportInformation();
-            //cascare.TransportInformation.ArrivalDate = new UCRMTS.dll.Models.DtmSegment() {  Date =DateTime.Now};
-            //cascare.TransportInformation.Vessel = "VV"; // "VVV"
+            //    MessageBox.Show("BOL information sent successfully!");
+            //}
 
-            //var edi = new EDIForm(cascare);
-            //edi.ShowDialog();
+            var cascare = new UCRMTS.dll.Models.CuscarInterchange();
+
+            // we will do mappings
+            cascare.Equipments = new List<UCRMTS.dll.Models.EquipmentGroup>();
+            cascare.Consignments = new List<UCRMTS.dll.Models.Consignment>();
+            cascare.Date = new UCRMTS.dll.Models.DtmSegment
+            {
+                Date = DateTime.Now,
+                FormatQualifier = "203",
+                Qualifier = "137"
+            };
+            cascare.TransportInformation = new UCRMTS.dll.Models.TransportInformation();
+            cascare.TransportInformation.ArrivalDate = new UCRMTS.dll.Models.DtmSegment() {  Date =DateTime.Now};
+            cascare.TransportInformation.Vessel = "VV"; // "VVV"
+            
+            var edi = new EDIForm(cascare);
+            edi.ShowDialog();
 
 
         }

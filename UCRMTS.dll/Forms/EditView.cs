@@ -43,7 +43,7 @@ namespace UCRMTS.dll.Forms
                     EDIService eDIService = new EDIService();
                     var file = File.ReadAllText(ofd.FileName);
                     data = eDIService.Deserialize(file);
-                   
+                    var x = JsonConvert.SerializeObject(data);
                     gridContainers.DataSource = data.Equipments.ToList();
                     txtSender.Text = data.SenderId;
                     txtReciver.Text = data.ReciverID;
@@ -179,6 +179,10 @@ namespace UCRMTS.dll.Forms
                  var consigment =   data.Consignments.FirstOrDefault(a => a.BillOfLadingNumber == (item as ConsigmentGridView).BillOfLadingNumber);
                     if (consigment != null)
                     {
+                        if(consigment.References == null)
+                        {
+                            consigment.References = new List<Reference>();
+                        }
                        var afm =  consigment.References.FirstOrDefault(a => a.Qualifier == "AFM");
                         if(afm != null)
                         {
