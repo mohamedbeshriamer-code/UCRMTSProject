@@ -71,6 +71,12 @@
     <Compile Include="EDIForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UCRForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UCRForm.resx">
       <DependentUpon>UCRForm.cs</DependentUpon>
     </EmbeddedResource>

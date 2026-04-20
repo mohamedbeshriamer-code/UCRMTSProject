@@ -6,6 +6,8 @@
         {
             public int NoOfPackages { get; set; }
 
+            public string CommodityCode { get; set; }
+
             public decimal GrossWieght { get; set; }
 
             public string MeasurmentID { get; set; }

@@ -16,7 +16,7 @@ namespace UCRMTSProject
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AddingConsigmentForm());
+            Application.Run(new TestForm());
         }
     }
 }

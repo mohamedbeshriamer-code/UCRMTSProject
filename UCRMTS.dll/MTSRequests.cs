@@ -58,9 +58,10 @@ namespace UCRMTS.dll
 
             var currentObject = new ExchangeDataPiplineDTO()
             {
+                
                 ExchangedDocument = new ExchangedDocument()
                 {
-                    IssueDateTime = DateTime.Now,
+                    IssueDateTime = DateTime.Now.AddMinutes(-50),
                     Issuer = new Issuer()
                     {
                         Id = new List<Id>() { new Id() { Content = details.IssuerTax } }
@@ -119,6 +120,20 @@ namespace UCRMTS.dll
                                }
                            }
                        },
+                       ArrivalEvent = new List<ArrivalEvent>()
+                       {
+                            new ArrivalEvent()
+                            {
+                                 EstimatedOccurrenceDateTime = details.UnLoadingTime,
+                            }
+                       },
+                        DepartureEvent = new List<DepartureEvent>()
+                       {
+                            new DepartureEvent()
+                            {
+                                 ActualOccurrenceDateTime = details.LoadingTime,
+                            }
+                       },
                       UsedLogisticsTransportMeans = new UsedLogisticsTransportMeans()
                       {
                           Id = new List<Id>()
@@ -152,6 +167,7 @@ namespace UCRMTS.dll
                        {
                           new Id(){Content = details.UCR}
                        },
+                       CarrierAcceptanceDateTime = DateTime.Now,
                        Carrier = new Carrier()
                        {
                            Id = new List<Id>()
@@ -167,9 +183,14 @@ namespace UCRMTS.dll
                        {
                            Content = details.Details.Sum(a=> a.NoOfPackages).ToString()
                        },
+                       
                        GrossWeight =    details.Details.Select(a=> new GrossWeight() {Content = a.GrossWieght.ToString() , UnitCode =a.MeasurmentID}).ToList(),
                        IncludedConsignmentItem = details.Details.Select((line,index) => new IncludedConsignmentItem()
                        {
+                           TypeCode = new TypeCode()
+                           {
+                               Content =line.CommodityCode
+                           },
                            SequenceNumeric = new SequenceNumeric()
                            {
                                Content   =(index+1) .ToString()
@@ -409,9 +430,12 @@ namespace UCRMTS.dll
                 var requestBody = JsonConvert.SerializeObject(exchangeDataPipline , new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore,
-                    DefaultValueHandling = DefaultValueHandling.Ignore
+                    DefaultValueHandling = DefaultValueHandling.Ignore,
+                    DateTimeZoneHandling = DateTimeZoneHandling.Utc,
+                    DateFormatString = "yyyy-MM-ddTHH:mm:ssZ"
                 });
                 var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+             
                 var response = await http.PostAsync(url, content);
                 if (response.IsSuccessStatusCode)
                 {

@@ -324,6 +324,8 @@ namespace UCRMTS.dll.DTOS
 
         [JsonProperty("netWeight")]
         public List<NetWeight> NetWeight { get; set; }
+        [JsonProperty("carrierAcceptanceDateTime")]
+        public DateTime CarrierAcceptanceDateTime { get; set; }
 
         [JsonProperty("consignmentItemQuantity")]
         public ConsignmentItemQuantity ConsignmentItemQuantity { get; set; }
