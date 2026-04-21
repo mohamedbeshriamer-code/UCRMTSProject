@@ -61,7 +61,7 @@ namespace UCRMTS.dll
                 
                 ExchangedDocument = new ExchangedDocument()
                 {
-                    IssueDateTime = DateTime.Now.AddMinutes(-50),
+                    IssueDateTime = DateTime.UtcNow,
                     Issuer = new Issuer()
                     {
                         Id = new List<Id>() { new Id() { Content = details.IssuerTax } }
@@ -95,8 +95,10 @@ namespace UCRMTS.dll
                 },
                 SpecifiedLogisticsTransportMovement = new List<SpecifiedLogisticsTransportMovement>()
                {
+                    
                    new SpecifiedLogisticsTransportMovement()
                    {
+                        
                        LoadingEvent = new LoadingEvent()
                        {
                            ScheduledOccurrenceDateTime = details.LoadingTime,
@@ -111,7 +113,7 @@ namespace UCRMTS.dll
                        },
                        UnloadingEvent = new UnloadingEvent()
                        {
-                             ScheduledOccurrenceDateTime =details.LoadingTime,
+                             ScheduledOccurrenceDateTime =details.UnLoadingTime,
                            OccurrenceLogisticsLocation= new OccurrenceLogisticsLocation()
                            {
                                Id= new List<Id>()
@@ -124,14 +126,14 @@ namespace UCRMTS.dll
                        {
                             new ArrivalEvent()
                             {
-                                 EstimatedOccurrenceDateTime = details.UnLoadingTime,
+                                 EstimatedOccurrenceDateTime = details.ArrivalTime,
                             }
                        },
                         DepartureEvent = new List<DepartureEvent>()
                        {
                             new DepartureEvent()
                             {
-                                 ActualOccurrenceDateTime = details.LoadingTime,
+                                 ActualOccurrenceDateTime = details.DepatureTime,
                             }
                        },
                       UsedLogisticsTransportMeans = new UsedLogisticsTransportMeans()
@@ -163,6 +165,13 @@ namespace UCRMTS.dll
                {
                    new SpecifiedConsignment()
                    {
+                       TransportContractReferencedDocument = new TransportContractReferencedDocument()
+                       {
+                            Id = new List<Id>()
+                            {
+                                new Id() { Content = details.TranspoContractReferencedDocument}
+                            }
+                       },
                        Id= new List<Id>()
                        {
                           new Id(){Content = details.UCR}
@@ -431,8 +440,8 @@ namespace UCRMTS.dll
                 {
                     NullValueHandling = NullValueHandling.Ignore,
                     DefaultValueHandling = DefaultValueHandling.Ignore,
-                    DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-                    DateFormatString = "yyyy-MM-ddTHH:mm:ssZ"
+                    DateTimeZoneHandling = DateTimeZoneHandling.Utc
+
                 });
                 var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
              

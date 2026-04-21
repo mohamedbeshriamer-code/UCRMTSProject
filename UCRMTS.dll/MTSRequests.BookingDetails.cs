@@ -12,7 +12,11 @@ namespace UCRMTS.dll
 
             public string UCR  { get; set; }
 
-   
+
+            public string TranspoContractReferencedDocument { get; set; }
+            public DateTime ArrivalTime { get; set; }
+
+            public DateTime DepatureTime { get; set; }
 
             public string ShipperTaxCode { get; set; }
 
